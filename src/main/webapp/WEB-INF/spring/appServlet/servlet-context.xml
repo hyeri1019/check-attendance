@@ -26,10 +26,10 @@
 
 <view-controller path="/" view-name="list"/>
 
-    <!-- Service 등록 -->
-	<beans:bean id="userListService" class="cat.Service.UserListServiceImpl"/>
+<!--    &lt;!&ndash; Service 등록 &ndash;&gt;-->
+<!--	<beans:bean id="userListService" class="cat.Service.UserListServiceImpl"/>-->
 
-   <!-- DAO 등록	-->
-	<beans:bean id="UserListDAO" class="cat.dao.UserListDAOImpl"/>
+<!--   &lt;!&ndash; DAO 등록	&ndash;&gt;-->
+<!--	<beans:bean id="UserListDAO" class="cat.dao.UserListDAOImpl"/>-->
 
 </beans:beans>

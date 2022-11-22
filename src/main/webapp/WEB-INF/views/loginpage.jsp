@@ -6,6 +6,7 @@
 <c:set var="loginOutLink" value="${loginId=='' ? '/loginpage' : '/logout'}"/>
 <c:set var="loginOut" value="${loginId=='' ? 'login' : 'logout'}"/>
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,7 +34,6 @@
             transform: translate(-50%, -50%) ;
             border: 1px solid rgb(27, 56, 77);
             border-radius: 10px;
-            background-color: rgb(75, 98, 121,0.5);
         }
         input[type='text'], input[type='password'] {
             width: 300px;
@@ -96,13 +96,14 @@
     <input type="text" name="id" value="${cookie.id.value}" placeholder="email" autofocus>
     <input type="password" name="pwd" placeholder="password">
     <input type="hidden" name="toURL" value="${param.toURL}">
+    <input type="hidden" name="regDate" value="${param.regDate}">
 
     <button>login</button>
     <div>
         <label><input type="checkbox" name="rememberId" value="on" ${empty cookie.id.value ? "":"checked"}> id 저장</label>
         <a href="">id 찾기</a>
         <a href="">비밀번호 찾기</a>
-        <a href="">회원가입</a>
+        <a href="<c:url value='/register/add'/>">회원가입</a>
     </div>
     <script>
 

@@ -20,7 +20,21 @@
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
-<!--	<tx:annotation-driven/>-->
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="configLocation"  value="classpath:mybatis-config.xml"/>
+		<property name="mapperLocations" value="classpath:mapper/*Mapper.xml"/>
+	</bean>
+
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory"/>
+	</bean>
+
+	<context:component-scan base-package="cat"/>
+
+<tx:annotation-driven/>
+	<mvc:annotation-driven />
 <!--	<context:component-scan base-package="com.fastcampus.ch3">-->
 <!--		<context:exclude-filter type="regex" expression="com.fastcampus.ch3.diCopy*.*"/>-->
 <!--	</context:component-scan>-->

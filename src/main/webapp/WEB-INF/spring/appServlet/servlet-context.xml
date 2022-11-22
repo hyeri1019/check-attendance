@@ -24,12 +24,13 @@
 	<context:component-scan base-package="cat"/>
 
 
-<view-controller path="/" view-name="list"/>
+<view-controller path="/" view-name="main"/>
 
 <!--    &lt;!&ndash; Service 등록 &ndash;&gt;-->
 <!--	<beans:bean id="userListService" class="cat.Service.UserListServiceImpl"/>-->
 
-<!--   &lt;!&ndash; DAO 등록	&ndash;&gt;-->
-<!--	<beans:bean id="UserListDAO" class="cat.dao.UserListDAOImpl"/>-->
+<!--   DAO 등록-->
+	<beans:bean id="UserDAO" class="cat.dao.UserDAOImpl"/>
+
 
 </beans:beans>

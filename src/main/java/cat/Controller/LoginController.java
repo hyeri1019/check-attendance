@@ -1,19 +1,24 @@
 package cat.Controller;
 
+import cat.dao.UserDAO;
 import cat.dto.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.net.URLEncoder;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Controller
 public class LoginController {
+    @Autowired
+    UserDAO userDao;
 
     @RequestMapping("/loginpage")
     public String loginpage() {
@@ -44,6 +49,7 @@ public class LoginController {
             HttpSession session = request.getSession();
             session.setAttribute("id",id);
 
+
             // 아이디 기억 체크한 경우 쿠키에 저장
             if(rememberId){
                 Cookie cookie = new Cookie("id",id);
@@ -62,8 +68,15 @@ public class LoginController {
 
 
 
-    private boolean loginCheck(String id, String pwd) {
-        return "asdf".equals(id) && "1234".equals(pwd);
+    private boolean loginCheck(String id, String pwd) throws Exception {
+
+
+        User user = userDao.selectUser(id);
+
+        if(user==null) return false;
+
+        System.out.println("nnn = " + user);
+        return user.getPwd().equals(pwd);
     }
 }
 

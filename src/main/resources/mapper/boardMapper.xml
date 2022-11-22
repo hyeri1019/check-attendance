@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cat.dao.BoardMapper">
+
+    <select id="count" resultType="int">
+        SELECT count(*) FROM board
+    </select>
+
+    <delete id="deleteForAdmin">
+        DELETE FROM board WHERE board_num = #{board_num}
+    </delete>
+
+    <delete id="deleteAll">
+        DELETE FROM board
+    </delete>
+
+    <!-- 게시판번호와 작성자가 일치하면 삭제  -->
+    <delete id="delete" parameterType="map">
+        DELETE FROM board WHERE board_num = #{board_num} and board_writer = #{board_writer}
+    </delete>
+
+    <insert id="insert" parameterType="BoardDTO">
+        INSERT INTO board (board_title, board_content,board_writer)
+            VALUES(#{board_title}, #{board_content}, #{board_writer})
+    </insert>
+
+    <select id="selectAll" resultType="BoardDTO">
+        SELECT board_num, board_title, board_content, board_writer, view_cnt, comment_cnt, reg_date
+        FROM board
+        ORDER BY reg_date DESC, board_num DESC
+    </select>
+
+    <sql id="selectFromBoard">
+        SELECT board_num, board_title, board_content, board_writer, view_cnt, comment_cnt, reg_date
+        FROM board
+    </sql>
+
+    <!-- 게시물 읽기 !-->
+    <select id="select" parameterType="int" resultType="BoardDTO">
+        <include refid="selectFromBoard"/>
+        WHERE board_num = #{board_num}
+    </select>
+
+    <select id="selectPage" parameterType="map" resultType="BoardDTO">
+        <include refid="selectFromBoard"/>
+        ORDER BY reg_date DESC, board_num DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+
+
+</mapper>

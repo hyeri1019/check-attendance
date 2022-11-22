@@ -36,8 +36,10 @@ public class RegisterController {
         //	System.out.println("validatorList="+validatorList);
     }
 
-    @GetMapping("/register/add")
+    @RequestMapping("/register")
     public String register() {
+        System.out.println(" register called");
+
         return "registerpage";
     }
 

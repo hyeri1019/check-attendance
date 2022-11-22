@@ -26,11 +26,12 @@
 
 <view-controller path="/" view-name="main"/>
 
-<!--    &lt;!&ndash; Service 등록 &ndash;&gt;-->
-<!--	<beans:bean id="userListService" class="cat.Service.UserListServiceImpl"/>-->
+<!--     Service 등록 -->
+<beans:bean id="BoardService" class="cat.Service.BoardServiceImpl"/>
 
 <!--   DAO 등록-->
 	<beans:bean id="UserDAO" class="cat.dao.UserDAOImpl"/>
+	<beans:bean id="BoardDAO" class="cat.dao.BoardDAOImpl"/>
 
 
 </beans:beans>

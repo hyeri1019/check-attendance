@@ -93,11 +93,7 @@ iframe {
 
 /* HOME
 ------------------------------- */
-#register {
-    background-image: url(../images/main-bg.jpg);
-    min-height: 100vh;
 
-}
 #home {
     background-image: url(../images/main-bg.jpg);
     min-height: 100vh;
@@ -238,7 +234,7 @@ form div {
 label {
     font-size: 1.125rem;
     margin-bottom: 10px;
-    display: block;
+    /*display: block;*/
 }
 
 input[type="email"],

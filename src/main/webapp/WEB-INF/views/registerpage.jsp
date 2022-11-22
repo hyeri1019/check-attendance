@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page session="false"%>
 
 
 
@@ -15,11 +16,13 @@
     <link href="css/style.css" rel="stylesheet">
 
     <style>
-        * { box-sizing:border-box;}
+        * { box-sizing:border-box;
+            margin: 0;
+            padding: 0;}
         a { text-decoration: none; }
         form {
             width:400px;
-            height:600px;
+            height:700px;
             display : flex;
             flex-direction: column;
             align-items:center;
@@ -33,17 +36,16 @@
         }
         .input-field {
             width: 300px;
-            height: 40px;
+            height: 50px;
             border : 1px solid rgb(0, 0, 0);
-            border-radius:5px;
-            padding: 0 10px;
+            border-radius:10px;
+            padding: 4px;
             margin-bottom: 10px;
         }
 
         label {
             width:300px;
             height:30px;
-            margin-top :4px;
         }
         button {
             background-color: rgb(45, 75, 96);
@@ -72,10 +74,6 @@
         .sns-chk {
             margin-top : 5px;
         }
-        #home {
-            background-image: url(/resources/images/main-bg.jpg);
-            min-height: 100vh;
-        }
 
     </style>
     <title>Register</title>
@@ -83,7 +81,7 @@
 <body>
 <div id="home" class="big-bg">
     <header class="page-header wrapper">
-        <h1><a href="<c:url value='/'/>"><img class="logo" src="/resources/images/logo.png" alt="냥냥닷컴 홈"></a></h1>
+        <h1><a href="<c:url value='/'/>"><img class="logo" src="images/logo.png" alt="냥냥닷컴 홈"></a></h1>
         <nav>
             <ul class="main-nav">
                 <li><a href="<c:url value='/'/>">Post</a></li>

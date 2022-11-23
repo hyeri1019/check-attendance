@@ -27,10 +27,10 @@ public class BoardDAOImpl implements BoardDAO {
     }
 
     @Override
-    public int delete(Integer board_num, String board_writer) throws Exception {
+    public int delete(Integer bno, String writer) throws Exception {
         Map map = new HashMap();
-        map.put("board_num", board_num);
-        map.put("board_writer", board_writer);
+        map.put("board_num", bno);
+        map.put("board_writer", writer);
         return session.delete(namespace+"delete", map);
     }
 
@@ -45,8 +45,8 @@ public class BoardDAOImpl implements BoardDAO {
     }
 
     @Override
-    public BoardDTO select(Integer board_num) throws Exception {
-        return session.selectOne(namespace + "select", board_num);
+    public BoardDTO select(Integer bno) throws Exception {
+        return session.selectOne(namespace + "select", bno);
     }
 
     @Override
@@ -54,7 +54,15 @@ public class BoardDAOImpl implements BoardDAO {
         return session.selectList(namespace + "selectPage", map);
     }
 
+    @Override
+    public int update(BoardDTO dto) throws Exception {
+        return session.update(namespace+"update", dto);
+    }
 
+    @Override
+    public int increaseViewCnt(Integer bno) throws Exception {
+        return session.update(namespace+"increaseViewCnt", bno);
+    }
 
 
 }

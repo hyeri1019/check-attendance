@@ -5,5 +5,6 @@
 <configuration>
     <typeAliases>
         <typeAlias alias="User" type="cat.dto.User"/>
+        <typeAlias alias="BoardDTO" type="cat.dto.BoardDTO"/>
     </typeAliases>
 </configuration>

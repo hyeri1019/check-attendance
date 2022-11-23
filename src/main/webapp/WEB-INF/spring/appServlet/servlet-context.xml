@@ -21,17 +21,11 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 
-	<context:component-scan base-package="cat"/>
+	<context:component-scan base-package="cat.*"/>
 
 
 <view-controller path="/" view-name="main"/>
 
-<!--     Service 등록 -->
-<beans:bean id="BoardService" class="cat.Service.BoardServiceImpl"/>
-
-<!--   DAO 등록-->
-	<beans:bean id="UserDAO" class="cat.dao.UserDAOImpl"/>
-	<beans:bean id="BoardDAO" class="cat.dao.BoardDAOImpl"/>
 
 
 </beans:beans>

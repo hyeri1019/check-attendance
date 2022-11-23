@@ -3,13 +3,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="cat.dao.BoardMapper">
-
     <select id="count" resultType="int">
         SELECT count(*) FROM board
     </select>
 
     <delete id="deleteForAdmin">
-        DELETE FROM board WHERE board_num = #{board_num}
+        DELETE FROM board WHERE board_num = #{bno}
     </delete>
 
     <delete id="deleteAll">
@@ -18,12 +17,14 @@
 
     <!-- 게시판번호와 작성자가 일치하면 삭제  -->
     <delete id="delete" parameterType="map">
-        DELETE FROM board WHERE board_num = #{board_num} and board_writer = #{board_writer}
+        DELETE FROM board WHERE board_num = #{bno} and board_writer = #{writer}
     </delete>
 
     <insert id="insert" parameterType="BoardDTO">
-        INSERT INTO board (board_title, board_content,board_writer)
-            VALUES(#{board_title}, #{board_content}, #{board_writer})
+        INSERT INTO board
+            (board_title, board_content, board_writer)
+        VALUES
+            (#{title}, #{content}, #{writer})
     </insert>
 
     <select id="selectAll" resultType="BoardDTO">
@@ -37,10 +38,10 @@
         FROM board
     </sql>
 
-    <!-- 게시물 읽기 !-->
+    <!-- 게시물 읽기(선택) !-->
     <select id="select" parameterType="int" resultType="BoardDTO">
         <include refid="selectFromBoard"/>
-        WHERE board_num = #{board_num}
+        WHERE board_num = #{bno}
     </select>
 
     <select id="selectPage" parameterType="map" resultType="BoardDTO">
@@ -49,6 +50,24 @@
         LIMIT #{offset}, #{pageSize}
     </select>
 
+    <update id="update" parameterType="BoardDTO">
+        UPDATE board
+        SET   board_title = #{title}
+          , board_content = #{content}
+          , up_date = now()
+        WHERE board_num = #{bno}
+    </update>
 
+    <update id="updateCommentCnt" parameterType="map">
+        UPDATE board
+        SET   comment_cnt = comment_cnt + #{cnt}
+        WHERE board_num = #{bno}
+    </update>
+
+    <update id="increaseViewCnt" parameterType="int">
+        UPDATE board
+        SET   view_cnt = view_cnt + 1
+        WHERE board_num = #{bno}
+    </update>
 
 </mapper>

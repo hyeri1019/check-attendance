@@ -47,6 +47,10 @@ public class BoardServiceImpl implements BoardService {
         return boardDao.selectPage(map);
     }
 
+    @Override
+    public int modify(BoardDTO boardDto) throws Exception {
+        return boardDao.update(boardDto);
+    }
 
 
 }

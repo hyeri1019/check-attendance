@@ -1,7 +1,9 @@
 package cat.Controller;
 
+import cat.dao.UserDAO;
 import cat.dto.BoardDTO;
 import cat.dto.PageHandler;
+import cat.dto.User;
 import cat.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,19 +15,21 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
 @Controller
-@RequestMapping("/board")
 public class BoardController {
+
 
     @Autowired
     BoardService boardService;
 
-    @PostMapping("/remove")
+
+    @PostMapping("/board/remove")
     public String remove(Integer board_num, Integer page, Integer pageSize, Model m, HttpSession session, RedirectAttributes rattr) {
         String writer = (String)session.getAttribute("id");
         try {
@@ -50,11 +54,12 @@ public class BoardController {
 
 
 
-    @GetMapping("/list")
-    public String list(Integer page, Integer pageSize, Model m,  HttpServletRequest request) {
-        if(!loginCheck(request))
-            return "redirect:/login/login?toURL="+request.getRequestURL();  // 로그인을 안했으면 로그인 화면으로 이동
-        //
+    @RequestMapping("/board")
+    public String list(User user, Integer page, Integer pageSize, Model m, HttpSession session, HttpServletRequest request) {
+        if(noLogin(request))
+            return "redirect:/loginpage?toURL="+request.getRequestURL();  // 로그인을 안했으면 로그인 화면으로 이동
+
+
         if(page==null) page=1;
         if(pageSize==null) pageSize=10;
 
@@ -77,15 +82,21 @@ public class BoardController {
             e.printStackTrace();
         }
 
-        return "boardList"; // 로그인을 한 상태이면, 게시판 화면으로 이동
+        // 세션객체에서 값 가져오기
+        String userId = (String)session.getAttribute("id");
+        System.out.println(" session_userId : "+userId);
+        m.addAttribute("userId", userId);
+
+
+
+        return "boardlist"; // 로그인을 한 상태이면, 게시판 화면으로 이동
     }
 
-    private boolean loginCheck(HttpServletRequest request) {
-        // 1. 세션을 얻어서
-        HttpSession session = request.getSession();
-        // 2. 세션에 id가 있는지 확인, 있으면 true를 반환
-        return session.getAttribute("id")!=null;
+    private boolean noLogin(HttpServletRequest request) {
+        // 저장된 세션이 있는지 체크(false:없으면 null반환)
+        HttpSession session = request.getSession(false);
+        return session == null;
     }
 }
 
-}
+

@@ -80,8 +80,8 @@
         <nav>
             <ul class="main-nav">
                 <li><a href="<c:url value='${loginOutLink}'/>">${loginOut}</a></li>
-                <li><a href="<c:url value='/'/>">Post</a></li>
-                <li><a href="<c:url value='/'/>">Contact</a></li>
+                <li><a href="<c:url value='/'/>">Shop</a></li>
+                <li><a href="<c:url value='/board'/>">Post</a></li>
             </ul>
         </nav>
     </header>

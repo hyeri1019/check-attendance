@@ -14,4 +14,8 @@ public interface BoardDAO {
     List<BoardDTO> selectAll() throws Exception;
     int deleteAll() throws Exception;
     int count() throws Exception;
+    int update(BoardDTO dto) throws Exception;
+
+    int increaseViewCnt(Integer bno) throws Exception;
+
 }

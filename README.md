@@ -12,3 +12,4 @@ Hrd-net 앱을 모방한 출석 체크 프로그램
 - Spring Framework
 - Mybatis
 - Mysql
+- JSP + JQuery

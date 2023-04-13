@@ -1,83 +1,75 @@
 package cat.Controller;
 
-import cat.dao.UserDAO;
-import cat.dto.User;
+import cat.dto.UserDto;
+import cat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.net.URLEncoder;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 @Controller
 public class LoginController {
+
     @Autowired
-    UserDAO userDao;
+    UserService userService;
 
     @RequestMapping("/loginpage")
     public String loginpage() {
-        return "loginpage";
+        return "login";
     }
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
+        System.out.println("logout");
         session.invalidate();
         return "redirect:/";
+    }
 
+    @RequestMapping("/manage")
+    public String manage() {
+        return "manage";
     }
 
     @PostMapping("/loginpage/login")
-    public String login(String id, String pwd, String toURL, boolean rememberId, Model m,
-                        HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public String login(String id, String pwd, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        // 유효성 검사
-            // 일치하지 않을 경우
-            if (!loginCheck(id, pwd)) {
-                String msg = URLEncoder.encode("id 또는 비밀번호가 일치하지 않습니다.", "utf-8");
-                m.addAttribute("msg",msg);
+        if(!checkInfo(id,pwd)) {
+            String message = URLEncoder.encode("아이디 또는 비밀번호가 일치하지 않습니다.","utf-8");
+            model.addAttribute("message",message);
+            return "redirect:/loginpage";
+        }
 
-                return "redirect:/loginpage?msg="+msg;
-            }
+        HttpSession session = request.getSession();
+        session.setAttribute("id",id);
 
-            // 일치할 경우 세션에 저장
-            HttpSession session = request.getSession();
-            session.setAttribute("id",id);
+        if(checkAdmin(id,pwd)) {
+            return "redirect:/manage";
+        }
 
-
-            // 아이디 기억 체크한 경우 쿠키에 저장
-            if(rememberId){
-                Cookie cookie = new Cookie("id",id);
-                response.addCookie(cookie);
-            } else {  // 체크하지 않은 경우 쿠키 삭제
-                Cookie cookie = new Cookie("id", id);
-                cookie.setMaxAge(0);
-                response.addCookie(cookie);
-            }
-
-
-        toURL = toURL==null || toURL.equals("") ? "/" : toURL;
-        return "redirect:"+toURL;
-
+        return "redirect:/attend";
     }
 
-
-
-    private boolean loginCheck(String id, String pwd) throws Exception {
-
-
-        User user = userDao.selectUser(id);
-
+    private boolean checkInfo(String id, String pwd) throws Exception {
+        UserDto user = userService.read(id);
         if(user==null) return false;
 
-        System.out.println("nnn = " + user);
+        System.out.println("user? = " + user);
         return user.getPwd().equals(pwd);
     }
+
+    private boolean checkAdmin(String id, String pwd) throws Exception {
+        UserDto admin = userService.readAdmin(id);
+        if(admin==null) return false;
+        return admin.getPwd().equals(pwd);
+
+
+    }
+
 }
-
-

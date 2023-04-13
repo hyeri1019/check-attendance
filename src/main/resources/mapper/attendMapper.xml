@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cat.dao.AttendMapper">
+
+<!-- 입실 정보 삽입 -->
+    <insert id="insertInTime" parameterType="AttendDto" >
+        INSERT INTO user_check (id, inTime)
+        VALUES
+            (#{id}, now())
+    </insert>
+
+<!--  오늘 날짜에만 퇴실정보 업데이트  -->
+    <update id="updateCheckOut" parameterType="AttendDto">
+        UPDATE user_check
+        SET outTime = now()
+        WHERE    datediff(inTime, now()) = 0 AND id=#{id}
+    </update>
+
+
+<!-- 관리자 기능 !-->
+<!-- 오늘 날짜 입실시간 조회 -->
+    <select id="selectInTime" parameterType="String" resultType="AttendDto">
+        SELECT A.id, inTime
+        FROM user_check B
+        INNER JOIN users A
+        ON A.id = B.id
+        WHERE B.id IS NOT NULL AND datediff(inTime, now()) = 0 AND A.id=#{id}
+    </select>
+
+<!-- 오늘 날짜 퇴실시간 조회 -->
+    <select id="selectOutTime" parameterType="String" resultType="AttendDto">
+        SELECT A.id, outTime
+        FROM user_check B
+        INNER JOIN users A
+        ON A.id = B.id
+        WHERE B.id IS NOT NULL AND datediff(outTime, now()) = 0 AND A.id=#{id}
+    </select>
+
+
+<!-- 오늘날짜 출석한 사람들 조회 !-->
+    <select id="selectTodayList"  resultType="AttendDto">
+        SELECT id, inTime, outTime
+        FROM user_check
+        WHERE datediff(outTime, now()) = 0
+    </select>
+
+<!-- 전체날짜 출석 리스트 조회 !-->
+    <select id="selectAllDayList"  resultType="AttendDto">
+        SELECT id, inTime, outTime
+        FROM user_check
+        ORDER BY inTime
+    </select>
+
+<!--  전체 user 출결 현황 조회   -->
+    <select id="selectUserList"  resultType="UserDto">
+        SELECT id, name, attendance, late, earlyLeave, absence
+        FROM users
+        WHERE role='user'
+
+    </select>
+
+</mapper>

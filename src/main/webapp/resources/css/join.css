@@ -1,0 +1,163 @@
+@charset "UTF-8";
+
+.all {
+	box-sizing: border-box;
+	
+	position: absolute;
+	width: 582px;
+	height: 562px;
+	left: calc(50% - 582px/2);
+	top: 130px;
+	
+	background: #FFFFFF;
+	box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.05);
+	border-radius: 30px;	
+}
+
+h4 {
+	position: absolute;
+	width: 296px;
+	height: 28px;
+	left: calc(50% - 296px/2);
+	top: 20px;
+	
+	font-family: 'Pretendard';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 24px;
+	line-height: 29px;
+	text-align: center;
+	
+	color: #000000;
+}
+
+#nametext {
+	position: absolute;
+	width: 378px;
+	height: 51px;
+	left: calc(50% - 200px/2 - 85px);
+	top: 110px;
+	
+	font-size: smaller;
+	font-weight: bolder;
+}
+
+#jumintext {
+	position: absolute;
+	width: 378px;
+	height: 51px;
+	left: calc(50% - 200px/2 - 85px);
+	top: 195px;
+	
+	font-size: smaller;
+	font-weight: bolder;
+}
+
+#idtext {
+	position: absolute;
+	width: 378px;
+	height: 51px;
+	left: calc(50% - 200px/2 - 85px);
+	top: 275px;
+	
+	font-size: smaller;
+	font-weight: bolder;	
+}
+
+#pwdtext {
+	position: absolute;
+	width: 378px;
+	height: 51px;
+	left: calc(50% - 200px/2 - 85px);
+	top: 355px;
+	
+	font-size: smaller;
+	font-weight: bolder;	
+}
+
+#name {
+	box-sizing: border-box;
+
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	padding: 16px 24px;
+	gap: 8px;
+	
+	position: absolute;
+	width: 378px;
+	height: 51px;
+	left: calc(50% - 200px/2 - 90px);
+	top: 130px;
+	
+	border: 1px solid #949494;
+	border-radius: 8px;
+}
+
+#jumin {
+	box-sizing: border-box;
+
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	padding: 16px 24px;
+	gap: 8px;
+	
+	position: absolute;
+	width: 378px;
+	height: 51px;
+	left: calc(50% - 200px/2 - 90px);
+	top: 215px;
+	
+	border: 1px solid #949494;
+	border-radius: 8px;
+}
+
+#id {
+	box-sizing: border-box;
+
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	padding: 16px 24px;
+	gap: 8px;
+	
+	position: absolute;
+	width: 378px;
+	height: 51px;
+	left: calc(50% - 200px/2 - 90px);
+	top: 295px;
+	
+	border: 1px solid #949494;
+	border-radius: 8px;
+}
+
+#pwd {
+	box-sizing: border-box;
+
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	padding: 16px 24px;
+	gap: 8px;
+	
+	position: absolute;
+	width: 378px;
+	height: 51px;
+	left: calc(50% - 200px/2 - 90px);
+	top: 375px;
+	
+	border: 1px solid #949494;
+	border-radius: 8px;
+}
+
+.submit {
+	position: absolute;
+	width: 380px;
+	height: 60px;
+	left: calc(50% - 380px/2 - 1px);
+	top: 470px;
+	
+	background: #5585FF;
+	border-radius: 15px;
+}

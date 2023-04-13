@@ -13,7 +13,7 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
-		<property name="url" value="jdbc:mysql://localhost:3306/springbasic?useUnicode=true&amp;characterEncoding=utf8"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/checkpro?useUnicode=true&amp;characterEncoding=utf8"></property>
 		<property name="username" value="hyeri"></property>
 		<property name="password" value="1234"></property>
 	</bean>
@@ -31,11 +31,13 @@
 		<constructor-arg ref="sqlSessionFactory"/>
 	</bean>
 
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<property name="maxUploadSize" value="2000000" />
+	</bean>
+
+
 	<context:component-scan base-package="cat"/>
 
 <tx:annotation-driven/>
 	<mvc:annotation-driven />
-<!--	<context:component-scan base-package="com.fastcampus.ch3">-->
-<!--		<context:exclude-filter type="regex" expression="com.fastcampus.ch3.diCopy*.*"/>-->
-<!--	</context:component-scan>-->
 </beans>

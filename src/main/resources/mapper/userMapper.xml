@@ -3,24 +3,72 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="cat.dao.UserMapper">
-    <insert id="insert" parameterType="User" >
-        INSERT INTO user_info(id, pwd, name, email, birth, sns, reg_date)
+
+
+    <insert id="insert" parameterType="UserDto" >
+        INSERT INTO users(id, pwd, name, jumin, regDate)
         VALUES
-            (#{id}, #{pwd}, #{name}, #{email}, #{birth}, #{sns}, CURDATE())
+            (#{id}, #{pwd}, #{name}, #{jumin}, CURDATE())
     </insert>
 
-
-
     <sql id="selectFromUser">
-        SELECT id, pwd, name, email, birth, sns, reg_date
-        FROM user_info
+        SELECT id, pwd, name, jumin, regDate, attendance, late, earlyLeave, absence
+        FROM users
     </sql>
 
 
-    <select id="select" parameterType="String" resultType="User">
+    <select id="select" parameterType="String" resultType="UserDto">
         <include refid="selectFromUser"/>
         WHERE id = #{id}
     </select>
+
+    <select id="selectAdmin" parameterType="String" resultType="UserDto">
+        SELECT id, pwd, name, role
+        FROM users
+        WHERE id = #{id} AND role = 'admin'
+    </select>
+
+    <select id="selectAllUser" resultType="UserDto">
+        SELECT id, pwd, name, attendance, late, earlyLeave, absence
+        FROM users
+        WHERE role = 'user'
+    </select>
+
+
+<!-- 출결관련 -->
+    <update id="updateAttendance" parameterType="String">
+        update users
+        set attendance = attendance+1
+        where id = #{id}
+    </update>
+
+    <update id="updateLate" parameterType="String">
+        update users
+        set late = late+1
+        where id = #{id}
+    </update>
+
+    <update id="updateEarlyLeave" parameterType="String">
+        update users
+        set earlyLeave = earlyLeave+1
+        where id = #{id}
+    </update>
+
+<!--   오늘 날짜 inTime 데이터가 없는 user에 결석+1    !-->
+    <update id="updateAbsence" parameterType="String">
+        UPDATE users
+        SET absence = absence+1
+        where id NOT IN (select id from
+            (select  A.id, B.inTime
+             from users A
+             left outer join user_check B
+             on A.id = B.id
+             where B.inTime > curdate() AND A.id IN (SELECT A.id
+             FROM user_check B
+             inner join users A
+             on A.id = B.id
+             WHERE B.id IS NOT NULL AND datediff(inTime, now()) = 0)) tmp)
+    </update>
 
 
 </mapper>

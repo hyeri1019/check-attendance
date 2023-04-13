@@ -4,7 +4,9 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <typeAliases>
-        <typeAlias alias="User" type="cat.dto.User"/>
-        <typeAlias alias="BoardDTO" type="cat.dto.BoardDTO"/>
+        <typeAlias alias="UserDto" type="cat.dto.UserDto"/>
+        <typeAlias alias="AttendDto" type="cat.dto.AttendDto"/>
+        <typeAlias alias="board" type="cat.dto.BoardVO"/>
     </typeAliases>
+
 </configuration>

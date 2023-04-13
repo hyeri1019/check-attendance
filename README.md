@@ -8,3 +8,7 @@ Hrd-net 앱을 모방한 출석 체크 프로그램
 - 핵심 기능인 출석 판별 서비스 전반
 - 데이터베이스 테이블 설계
 
+## 개발 환경
+- Spring Framework
+- Mybatis
+- Mysql
